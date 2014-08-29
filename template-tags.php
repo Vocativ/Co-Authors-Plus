@@ -124,7 +124,7 @@ class CoAuthorsIterator {
 }
 
 //Helper function for the following new template tags
-function coauthors__echo( $tag, $type = 'tag', $separators = array(), $tag_args = null, $echo = true, $limit = false ) {
+function coauthors__echo( $tag, $type = 'tag', $separators = array(), $tag_args = null, $echo = true, $limit = false, $postID = 0 ) {
 
 	// Define the standard output separator. Constant support is for backwards compat.
 	// @see https://github.com/danielbachhuber/Co-Authors-Plus/issues/12
@@ -144,7 +144,7 @@ function coauthors__echo( $tag, $type = 'tag', $separators = array(), $tag_args 
 
 	$output = '';
 	
-	$i = new CoAuthorsIterator();
+	$i = new CoAuthorsIterator( $postID );
 	$output .= $separators['before'];
 	$i->iterate();
 	do {
@@ -193,13 +193,13 @@ function coauthors__echo( $tag, $type = 'tag', $separators = array(), $tag_args 
  * @param string $after What should appear after the presentation of co-authors
  * @param bool $echo Whether the co-authors should be echoed or returned. Defaults to true.
  */
-function coauthors( $between = null, $betweenLast = null, $before = null, $after = null, $echo = true ){
+function coauthors( $between = null, $betweenLast = null, $before = null, $after = null, $echo = true, $postID = 0 ){
 	return coauthors__echo('display_name', 'field', array(
 		'between' => $between,
 		'betweenLast' => $betweenLast,
 		'before' => $before,
 		'after' => $after
-	), null, $echo );
+	), null, $echo, false, $postID );
 }
 
 /**
