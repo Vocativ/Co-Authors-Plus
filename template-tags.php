@@ -236,15 +236,17 @@ function coauthors_posts_links_single( $author ) {
 		'title' => sprintf( __( 'Posts by %s', 'co-authors-plus' ), get_the_author() ),
 		'class' => 'url fn',
 		'text' => get_the_author(),
+		'twitter_handle' => get_the_author_meta( 'twitter', $author->ID ),
 		'after_html' => ''
 	);
 	$args = apply_filters( 'coauthors_posts_link', $args, $author );
 	$single_link = sprintf(
-			'<a href="%1$s" title="%2$s" class="%3$s" rel="%4$s">%5$s</a>',
+			'<a href="%1$s" title="%2$s" class="%3$s" rel="%4$s" data-twitter-handle="%5$s">%6$s</a>',
 			esc_url( $args['href'] ),
 			esc_attr( $args['title'] ),
 			esc_attr( $args['class'] ),
 			esc_attr( $args['rel'] ),
+			esc_attr( $args['twitter_handle'] ),
 			esc_html( $args['text'] )
 	);
 	return $args['before_html'] . $single_link . $args['after_html'];
