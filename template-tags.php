@@ -167,7 +167,16 @@ function coauthors__echo( $tag, $type = 'tag', $separators = array(), $tag_args 
 		
 		if ( ( $i->is_last() || ( $limit && $i->get_position() + 1 == $limit ) ) && $i->count() > 1 ) {
 			$output = rtrim( $output, $separators['between'] );
-			$output .= $separators['betweenLast'];
+			if ( is_array( $separators['betweenLast'] ) && isset( $separators['betweenLast']['delimeter'] ) && isset( $separators['betweenLast']['min'] ) ) {
+				if ( $i->get_position() < $separators['betweenLast']['min'] ) {
+					$output .= $separators['between'];
+				} else {
+					$output .= $separators['betweenLast']['delimeter'];
+				}
+			} else {
+				$output .= $separators['betweenLast'];
+			}
+			
 		}
 		
 		$output .= $author_text;
@@ -188,7 +197,9 @@ function coauthors__echo( $tag, $type = 'tag', $separators = array(), $tag_args 
  * Co-Authors Plus equivalent of the_author() template tag.
  *
  * @param string $between Delimiter that should appear between the co-authors
- * @param string $betweenLast Delimiter that should appear between the last two co-authors
+ * @param mixed $betweenLast Usually string - Delimiter that should appear between the last two co-authors, can also be an array containing
+ *		delimeter: string (the aforementioned delimeter)
+ *		min: the minimum number of authors before the delimeter is added, otherwise using $between
  * @param string $before What should appear before the presentation of co-authors
  * @param string $after What should appear after the presentation of co-authors
  * @param bool $echo Whether the co-authors should be echoed or returned. Defaults to true.
@@ -207,7 +218,9 @@ function coauthors( $between = null, $betweenLast = null, $before = null, $after
  * Co-Authors Plus equivalent of the_author_posts_link() template tag.
  *
  * @param string $between Delimiter that should appear between the co-authors
- * @param string $betweenLast Delimiter that should appear between the last two co-authors
+ * @param mixed $betweenLast Usually string - Delimiter that should appear between the last two co-authors, can also be an array containing
+ *		delimeter: string (the aforementioned delimeter)
+ *		min: the minimum number of authors before the delimeter is added, otherwise using $between
  * @param string $before What should appear before the presentation of co-authors
  * @param string $after What should appear after the presentation of co-authors
  * @param bool $echo Whether the co-authors should be echoed or returned. Defaults to true.
@@ -256,7 +269,9 @@ function coauthors_posts_links_single( $author ) {
  * Outputs the co-authors first names, without links to their posts.
  *
  * @param string $between Delimiter that should appear between the co-authors
- * @param string $betweenLast Delimiter that should appear between the last two co-authors
+ * @param mixed $betweenLast Usually string - Delimiter that should appear between the last two co-authors, can also be an array containing
+ *		delimeter: string (the aforementioned delimeter)
+ *		min: the minimum number of authors before the delimeter is added, otherwise using $between
  * @param string $before What should appear before the presentation of co-authors
  * @param string $after What should appear after the presentation of co-authors
  * @param bool $echo Whether the co-authors should be echoed or returned. Defaults to true.
@@ -274,7 +289,9 @@ function coauthors_firstnames($between = null, $betweenLast = null, $before = nu
  * Outputs the co-authors last names, without links to their posts.
  *
  * @param string $between Delimiter that should appear between the co-authors
- * @param string $betweenLast Delimiter that should appear between the last two co-authors
+ * @param mixed $betweenLast Usually string - Delimiter that should appear between the last two co-authors, can also be an array containing
+ *		delimeter: string (the aforementioned delimeter)
+ *		min: the minimum number of authors before the delimeter is added, otherwise using $between
  * @param string $before What should appear before the presentation of co-authors
  * @param string $after What should appear after the presentation of co-authors
  * @param bool $echo Whether the co-authors should be echoed or returned. Defaults to true.
@@ -292,7 +309,9 @@ function coauthors_lastnames($between = null, $betweenLast = null, $before = nul
  * Outputs the co-authors nicknames, without links to their posts.
  *
  * @param string $between Delimiter that should appear between the co-authors
- * @param string $betweenLast Delimiter that should appear between the last two co-authors
+ * @param mixed $betweenLast Usually string - Delimiter that should appear between the last two co-authors, can also be an array containing
+ *		delimeter: string (the aforementioned delimeter)
+ *		min: the minimum number of authors before the delimeter is added, otherwise using $between
  * @param string $before What should appear before the presentation of co-authors
  * @param string $after What should appear after the presentation of co-authors
  * @param bool $echo Whether the co-authors should be echoed or returned. Defaults to true.
@@ -310,7 +329,9 @@ function coauthors_nicknames($between = null, $betweenLast = null, $before = nul
  * Outputs the co-authors display names, with links to their websites if they've provided them.
  *
  * @param string $between Delimiter that should appear between the co-authors
- * @param string $betweenLast Delimiter that should appear between the last two co-authors
+ * @param mixed $betweenLast Usually string - Delimiter that should appear between the last two co-authors, can also be an array containing
+ *		delimeter: string (the aforementioned delimeter)
+ *		min: the minimum number of authors before the delimeter is added, otherwise using $between
  * @param string $before What should appear before the presentation of co-authors
  * @param string $after What should appear after the presentation of co-authors
  * @param bool $echo Whether the co-authors should be echoed or returned. Defaults to true.
@@ -364,7 +385,9 @@ function coauthors_links_single( $author ) {
  * Outputs the co-authors IDs
  *
  * @param string $between Delimiter that should appear between the co-authors
- * @param string $betweenLast Delimiter that should appear between the last two co-authors
+ * @param mixed $betweenLast Usually string - Delimiter that should appear between the last two co-authors, can also be an array containing
+ *		delimeter: string (the aforementioned delimeter)
+ *		min: the minimum number of authors before the delimeter is added, otherwise using $between
  * @param string $before What should appear before the presentation of co-authors
  * @param string $after What should appear after the presentation of co-authors
  * @param bool $echo Whether the co-authors should be echoed or returned. Defaults to true.
